@@ -1,6 +1,6 @@
 /**
  * About Page — Luxury Editorial Inmobiliario
- * Full about page with team photo, values, animal shelter donation section, and CEO flip card.
+ * Full about page with CEO flip card on left, mission text on right, animal shelter donation section.
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
@@ -21,8 +21,6 @@ export default function AboutPage() {
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const donationRef = useRef(null);
   const donationInView = useInView(donationRef, { once: true, margin: "-60px" });
-  const ceoRef = useRef(null);
-  const ceoInView = useInView(ceoRef, { once: true, margin: "-60px" });
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -62,33 +60,27 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* About content */}
+        {/* About content with CEO flip card on left */}
         <section ref={ref} className="py-20 lg:py-28 bg-cream">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-              {/* Image */}
+              {/* CEO Flip Card on left */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.8 }}
-                className="lg:col-span-5 relative"
+                className="lg:col-span-5 flex justify-center"
               >
-                <div className="relative overflow-hidden rounded-sm">
-                  <img
-                    src={TEAM_IMG}
-                    alt="Equipo Inmobiliaria Martorelles"
-                    className="w-full h-auto object-cover aspect-[4/5]"
-                  />
-                  <div className="absolute bottom-0 left-0 bg-green-brand text-white p-5">
-                    <span className="font-serif text-3xl font-bold block">15+</span>
-                    <span className="font-sans text-xs tracking-wider uppercase">
-                      {t("about.years")}
-                    </span>
-                  </div>
-                </div>
+                <FlipCard
+                  frontImage={CEO_IMG}
+                  name={t("ceo.name")}
+                  title={t("ceo.title")}
+                  backText={t("ceo.flip.text")}
+                  backTextSecondary={t("ceo.flip.secondary")}
+                />
               </motion.div>
 
-              {/* Text */}
+              {/* Text on right */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -184,35 +176,6 @@ export default function AboutPage() {
                     ))}
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* CEO Flip Card Section */}
-        <section ref={ceoRef} className="py-20 lg:py-28 bg-cream">
-          <div className="container">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={ceoInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl mx-auto text-center"
-            >
-              <span className="section-label text-green-brand block mb-3">
-                {t("about.label")}
-              </span>
-              <div className="editorial-line bg-green-brand mx-auto mb-8" />
-              <h2 className="font-serif text-3xl lg:text-4xl font-semibold text-[#1a1a1a] leading-tight mb-12">
-                {t("ceo.title")}
-              </h2>
-              <div className="flex justify-center">
-                <FlipCard
-                  frontImage={CEO_IMG}
-                  name={t("ceo.name")}
-                  title={t("ceo.title")}
-                  backText={t("ceo.flip.text")}
-                  backTextSecondary={t("ceo.flip.secondary")}
-                />
               </div>
             </motion.div>
           </div>
