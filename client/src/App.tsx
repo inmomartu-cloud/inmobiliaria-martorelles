@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home";
 import ServicesPage from "./pages/ServicesPage";
+import PropertiesPage from "./pages/PropertiesPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import AdminProperties from "./pages/AdminProperties";
@@ -16,6 +17,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/servicios"} component={ServicesPage} />
+      <Route path={"/propiedades"} component={PropertiesPage} />
       <Route path={"/sobre-nosotros"} component={AboutPage} />
       <Route path={"/contacto"} component={ContactPage} />
       <Route path={"/admin"} component={AdminProperties} />

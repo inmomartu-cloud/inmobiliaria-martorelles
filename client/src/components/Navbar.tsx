@@ -23,7 +23,7 @@ export default function Navbar() {
   const navLinks = [
     { label: t("nav.home"), href: "/" },
     { label: t("nav.services"), href: "/servicios" },
-    { label: t("nav.properties"), href: "/#propiedades" },
+    { label: t("nav.properties"), href: "/propiedades" },
     { label: t("nav.about"), href: "/sobre-nosotros" },
     { label: t("nav.contact"), href: "/contacto" },
   ];
