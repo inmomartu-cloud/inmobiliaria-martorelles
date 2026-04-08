@@ -411,6 +411,20 @@ const translations = {
     ca: "Estem aquí per resoldre tots els teus dubtes i ajudar-te a trobar la millor solució immobiliària.",
     en: "We are here to answer all your questions and help you find the best real estate solution.",
   },
+
+  // CEO FLIP CARD
+  "ceo.name": { es: "Rafael Corpas Fernández", ca: "Rafael Corpas Fernández", en: "Rafael Corpas Fernández" },
+  "ceo.title": { es: "CEO & Founder", ca: "CEO & Fundador", en: "CEO & Founder" },
+  "ceo.flip.text": {
+    es: "Tu confianza es nuestra base, tu satisfacción nuestro mejor resultado.",
+    ca: "La teva confiança és la nostra base, la teva satisfacció el nostre millor resultat.",
+    en: "Your trust is our foundation, your satisfaction our best result.",
+  },
+  "ceo.flip.secondary": {
+    es: "Expertos en el mercado local",
+    ca: "Experts en el mercat local",
+    en: "Experts in the local market",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

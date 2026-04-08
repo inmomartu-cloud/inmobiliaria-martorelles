@@ -1,6 +1,6 @@
 /**
  * About Page — Luxury Editorial Inmobiliario
- * Full about page with team photo, values, animal shelter donation section.
+ * Full about page with team photo, values, animal shelter donation section, and CEO flip card.
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
@@ -8,15 +8,21 @@ import { Heart, CheckCircle, Users, MapPin, Award, HandHeart } from "lucide-reac
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
+import FlipCard from "@/components/FlipCard";
 
 const TEAM_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/about-team-3hHkwHxJMjdyHqXJkqJBwQ.webp";
+
+const CEO_IMG =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/rafael-corpas-ceo_7eb8717c.jpg";
 
 export default function AboutPage() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const donationRef = useRef(null);
   const donationInView = useInView(donationRef, { once: true, margin: "-60px" });
+  const ceoRef = useRef(null);
+  const ceoInView = useInView(ceoRef, { once: true, margin: "-60px" });
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -178,6 +184,35 @@ export default function AboutPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CEO Flip Card Section */}
+        <section ref={ceoRef} className="py-20 lg:py-28 bg-cream">
+          <div className="container">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={ceoInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="max-w-2xl mx-auto text-center"
+            >
+              <span className="section-label text-green-brand block mb-3">
+                {t("about.label")}
+              </span>
+              <div className="editorial-line bg-green-brand mx-auto mb-8" />
+              <h2 className="font-serif text-3xl lg:text-4xl font-semibold text-[#1a1a1a] leading-tight mb-12">
+                {t("ceo.title")}
+              </h2>
+              <div className="flex justify-center">
+                <FlipCard
+                  frontImage={CEO_IMG}
+                  name={t("ceo.name")}
+                  title={t("ceo.title")}
+                  backText={t("ceo.flip.text")}
+                  backTextSecondary={t("ceo.flip.secondary")}
+                />
               </div>
             </motion.div>
           </div>
