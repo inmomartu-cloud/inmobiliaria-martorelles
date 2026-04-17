@@ -58,7 +58,7 @@ export const PROPERTIES_DATA: Property[] = [
       { id: 106, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-6_60dd0138.jpg", sortOrder: 5 },
       { id: 107, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-7_7aedb9bd.jpg", sortOrder: 6 },
       { id: 108, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-8_5e2fb289.jpg", sortOrder: 7 },
-      { id: 109, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTavGkgE2y5gLQWs2/casa-real-9_d67281fb.jpg", sortOrder: 8 },
+      { id: 109, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-9_d67281fb.jpg", sortOrder: 8 },
       { id: 110, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-10_ce9d54d3.jpg", sortOrder: 9 },
       { id: 111, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-11_6decb175.jpg", sortOrder: 10 },
       { id: 112, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-12_fcccbc81.jpg", sortOrder: 11 },
@@ -87,7 +87,8 @@ export const PROPERTIES_DATA: Property[] = [
     isActive: 1,
     sortOrder: 0,
     images: [
-      { id: 401, propertyId: 4, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-1_8512637e.jpg", sortOrder: 0 }
+      { id: 401, propertyId: 4, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-1_8512637e.jpg", sortOrder: 0 },
+      { id: 402, propertyId: 4, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-2_1cd380ef.jpg", sortOrder: 1 }
     ]
   },
   {
