@@ -30,43 +30,6 @@ export interface Property {
 
 export const PROPERTIES_DATA: Property[] = [
   {
-    id: 1,
-    type: "house",
-    transactionType: "sale",
-    titleEs: "Casa con Patio en Martorelles",
-    titleCa: "Casa amb Pati a Martorelles",
-    titleEn: "House with Patio in Martorelles",
-    descriptionEs: "Encantadora casa de 80m² con un amplio patio de 60m² en el corazón de Martorelles. Ideal para familias que buscan un hogar con espacio exterior en una zona tranquila y bien comunicada.",
-    descriptionCa: "Encantadora casa de 80m² amb un ampli pati de 60m² al cor de Martorelles. Ideal per a famílies que busquen una llar amb espai exterior en una zona tranquil·la i ben comunicada.",
-    descriptionEn: "Charming 80m² house with a spacious 60m² patio in the heart of Martorelles. Ideal for families looking for a home with outdoor space in a quiet, well-connected area.",
-    location: "Martorelles, Vallès Oriental",
-    price: "Consultar",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 80,
-    extraArea: 60,
-    extraAreaLabel: "patio",
-    tag: "featured",
-    isActive: 1,
-    sortOrder: 1,
-    images: [
-      { id: 101, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-1_8512637e.jpg", sortOrder: 0 },
-      { id: 102, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-2_1cd380ef.jpg", sortOrder: 1 },
-      { id: 103, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-3_f41b18f1.jpg", sortOrder: 2 },
-      { id: 104, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-4_098bd8a3.jpg", sortOrder: 3 },
-      { id: 105, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-5_ff38293b.jpg", sortOrder: 4 },
-      { id: 106, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-6_60dd0138.jpg", sortOrder: 5 },
-      { id: 107, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-7_7aedb9bd.jpg", sortOrder: 6 },
-      { id: 108, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-8_5e2fb289.jpg", sortOrder: 7 },
-      { id: 109, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-9_d67281fb.jpg", sortOrder: 8 },
-      { id: 110, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-10_ce9d54d3.jpg", sortOrder: 9 },
-      { id: 111, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-11_6decb175.jpg", sortOrder: 10 },
-      { id: 112, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-12_fcccbc81.jpg", sortOrder: 11 },
-      { id: 113, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-13_9de769c7.jpg", sortOrder: 12 },
-      { id: 114, propertyId: 1, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-14_f7e7d7ab.jpg", sortOrder: 13 }
-    ]
-  },
-  {
     id: 4,
     type: "house",
     transactionType: "rent",
