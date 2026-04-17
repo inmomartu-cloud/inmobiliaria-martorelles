@@ -87,8 +87,9 @@ export const PROPERTIES_DATA: Property[] = [
     isActive: 1,
     sortOrder: 0,
     images: [
-      { id: 401, propertyId: 4, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-1_8512637e.jpg", sortOrder: 0 },
-      { id: 402, propertyId: 4, url: "https://d2xsxph8kpxj0f.cloudfront.net/310519663276806663/4ntBHTqavGkgE2y5gLQWs2/casa-real-2_1cd380ef.jpg", sortOrder: 1 }
+      { id: 401, propertyId: 4, url: "https://storage.googleapis.com/static.inmoweb.es/clients/4320/property/1698690/image/w/comedor-font-better-2.jpg", sortOrder: 0 },
+      { id: 402, propertyId: 4, url: "https://storage.googleapis.com/static.inmoweb.es/clients/4320/property/1698690/image/w/lavabo-font-better.jpg", sortOrder: 1 }
+      { id: 403, propertyId: 4, url: "https://storage.googleapis.com/static.inmoweb.es/clients/4320/property/1698690/image/w/patio-trasero-2.jpg", sortOrder: 2 }
     ]
   },
   {
