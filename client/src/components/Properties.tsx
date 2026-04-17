@@ -1,12 +1,12 @@
 /**
  * Properties — Luxury Editorial Inmobiliario
- * Loads properties from database via tRPC. Gallery with lightbox.
+ * Loads properties from local data. Gallery with lightbox.
  */
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { MapPin, Bed, Bath, Maximize, ArrowRight, ChevronLeft, ChevronRight, X, Trees, Image as ImageIcon, Loader2 } from "lucide-react";
+import { MapPin, Bed, Bath, Maximize, ArrowRight, ChevronLeft, ChevronRight, X, Trees, Image as ImageIcon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { trpc } from "@/lib/trpc";
+import { PROPERTIES_DATA } from "@/lib/propertiesData";
 
 /* ── Photo Gallery Lightbox ── */
 function Lightbox({
@@ -182,7 +182,9 @@ export default function Properties() {
   const titleRef = useRef(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-80px" });
   const { t } = useLanguage();
-  const { data: properties, isLoading } = trpc.properties.listActive.useQuery();
+  
+  // Use local data instead of tRPC
+  const properties = PROPERTIES_DATA.filter(p => p.isActive === 1);
 
   return (
     <section id="propiedades" className="py-20 lg:py-28 bg-white">
@@ -205,11 +207,7 @@ export default function Properties() {
           </motion.a>
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-green-brand" />
-          </div>
-        ) : !properties || properties.length === 0 ? (
+        {!properties || properties.length === 0 ? (
           <div className="text-center py-16">
             <p className="font-sans text-[#1a1a1a]/50">{"No hay propiedades disponibles en este momento."}</p>
           </div>

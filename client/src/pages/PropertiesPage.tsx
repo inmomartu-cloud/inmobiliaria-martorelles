@@ -1,54 +1,31 @@
 /**
  * Properties Page — All properties listing
- * Full page showing all properties from database with filters and detailed view
+ * Full page showing all properties from local data with filters and detailed view
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, X, MapPin, Home, Maximize2 } from "lucide-react";
-import { useLocation } from "wouter";
+import { ChevronLeft, ChevronRight, X, MapPin, Home } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { trpc } from "@/lib/trpc";
-
-interface PropertyWithImages {
-  id: number;
-  titleEs: string;
-  titleCa: string;
-  titleEn: string;
-  descriptionEs?: string | null;
-  descriptionCa?: string | null;
-  descriptionEn?: string | null;
-  location: string;
-  price: string;
-  bedrooms: number | null;
-  bathrooms: number | null;
-  area: number | null;
-  extraArea: number | null;
-  extraAreaLabel?: string | null;
-  type: "house" | "apartment" | "land" | "commercial" | "other";
-  transactionType: "sale" | "rent";
-  tag?: "featured" | "exclusive" | "new" | null;
-  isActive: number;
-  images: Array<{ id: number; propertyId: number; url: string; sortOrder: number | null; createdAt: Date }>;
-}
+import { PROPERTIES_DATA, Property } from "@/lib/propertiesData";
 
 export default function PropertiesPage() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const { t, locale } = useLanguage();
-  const [selectedProperty, setSelectedProperty] = useState<PropertyWithImages | null>(null);
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [, navigate] = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Fetch properties from database
-  const { data: properties = [], isLoading } = trpc.properties.listActive.useQuery();
+  // Use local data instead of tRPC
+  const properties = PROPERTIES_DATA.filter(p => p.isActive === 1);
 
-  const handlePrevImage = () => {
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (selectedProperty) {
       setCurrentImageIndex((prev) =>
         prev === 0 ? selectedProperty.images.length - 1 : prev - 1
@@ -56,7 +33,8 @@ export default function PropertiesPage() {
     }
   };
 
-  const handleNextImage = () => {
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (selectedProperty) {
       setCurrentImageIndex((prev) =>
         prev === selectedProperty.images.length - 1 ? 0 : prev + 1
@@ -97,13 +75,7 @@ export default function PropertiesPage() {
         {/* Properties Grid */}
         <section ref={ref} className="py-20 lg:py-28 bg-cream">
           <div className="container">
-            {isLoading ? (
-              <div className="text-center py-20">
-                <p className="font-sans text-lg text-[#1a1a1a]/60">
-                  {locale === "es" ? "Cargando propiedades..." : locale === "ca" ? "Carregant propietats..." : "Loading properties..."}
-                </p>
-              </div>
-            ) : properties.length === 0 ? (
+            {properties.length === 0 ? (
               <div className="text-center py-20">
                 <p className="font-sans text-lg text-[#1a1a1a]/60">
                   {locale === "es" ? "No hay propiedades disponibles" : locale === "ca" ? "No hi ha propietats disponibles" : "No properties available"}
@@ -111,7 +83,7 @@ export default function PropertiesPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {properties.map((property: PropertyWithImages, index: number) => (
+                {properties.map((property: Property, index: number) => (
                   <motion.div
                     key={property.id}
                     initial={{ opacity: 0, y: 30 }}
@@ -211,17 +183,18 @@ export default function PropertiesPage() {
 
       {/* Property Detail Modal */}
       {selectedProperty && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setSelectedProperty(null)}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={() => setSelectedProperty(null)}
-              className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 hover:bg-[#1a1a1a]/10 transition-colors"
+              className="absolute top-4 right-4 z-20 bg-white rounded-full p-2 hover:bg-[#1a1a1a]/10 transition-colors shadow-md"
             >
               <X className="w-6 h-6" />
             </button>
@@ -240,117 +213,96 @@ export default function PropertiesPage() {
                   <>
                     <button
                       onClick={handlePrevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors z-10"
                     >
                       <ChevronLeft className="w-6 h-6" />
                     </button>
                     <button
                       onClick={handleNextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors z-10"
                     >
                       <ChevronRight className="w-6 h-6" />
                     </button>
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-xs">
+                      {currentImageIndex + 1} / {selectedProperty.images.length}
+                    </div>
                   </>
                 )}
-
-                {/* Image counter */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
-                  {currentImageIndex + 1} / {selectedProperty.images.length}
-                </div>
               </div>
             )}
 
-            {/* Content */}
+            {/* Property info */}
             <div className="p-8">
-            <h2 className="font-serif text-3xl font-semibold text-[#1a1a1a] mb-2">
-              {locale === "es" ? selectedProperty.titleEs : locale === "ca" ? selectedProperty.titleCa : selectedProperty.titleEn}
-            </h2>
-
-              <div className="flex items-center gap-2 text-[#1a1a1a]/60 mb-6">
-                <MapPin className="w-5 h-5" />
-                <span className="font-sans text-lg">{selectedProperty.location}</span>
-              </div>
-
-              {/* Price */}
-              <div className="mb-6 pb-6 border-b border-[#1a1a1a]/10">
-                <span className="font-serif text-4xl font-bold text-green-brand">
-                  {selectedProperty.price}
-                </span>
-              </div>
-
-              {/* Details grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                 <div>
-                  <div className="font-sans text-xs text-[#1a1a1a]/60 uppercase tracking-wider mb-2">
+                  <h2 className="font-serif text-3xl font-bold text-[#1a1a1a] mb-2">
+                    {locale === "es" ? selectedProperty.titleEs : locale === "ca" ? selectedProperty.titleCa : selectedProperty.titleEn}
+                  </h2>
+                  <div className="flex items-center gap-2 text-[#1a1a1a]/60">
+                    <MapPin className="w-5 h-5" />
+                    <span className="font-sans text-lg">{selectedProperty.location}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-serif text-3xl font-bold text-green-brand mb-1">
+                    {selectedProperty.price}
+                  </div>
+                  <div className="bg-green-brand/10 text-green-brand px-3 py-1 rounded-sm text-sm font-semibold inline-block">
+                    {selectedProperty.transactionType === "sale" ? (locale === "es" ? "Venta" : locale === "ca" ? "Venda" : "Sale") : (locale === "es" ? "Alquiler" : locale === "ca" ? "Lloguer" : "Rent")}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 py-6 border-y border-[#1a1a1a]/10">
+                <div>
+                  <div className="font-sans text-sm text-[#1a1a1a]/60 mb-1">
                     {locale === "es" ? "Habitaciones" : locale === "ca" ? "Habitacions" : "Bedrooms"}
                   </div>
-                  <div className="font-serif text-2xl font-bold text-green-brand">
-                    {selectedProperty.bedrooms}
-                  </div>
+                  <div className="font-serif text-xl font-semibold">{selectedProperty.bedrooms}</div>
                 </div>
                 <div>
-                  <div className="font-sans text-xs text-[#1a1a1a]/60 uppercase tracking-wider mb-2">
+                  <div className="font-sans text-sm text-[#1a1a1a]/60 mb-1">
                     {locale === "es" ? "Baños" : locale === "ca" ? "Banys" : "Bathrooms"}
                   </div>
-                  <div className="font-serif text-2xl font-bold text-green-brand">
-                    {selectedProperty.bathrooms}
-                  </div>
+                  <div className="font-serif text-xl font-semibold">{selectedProperty.bathrooms}</div>
                 </div>
                 <div>
-                  <div className="font-sans text-xs text-[#1a1a1a]/60 uppercase tracking-wider mb-2">
-                    {locale === "es" ? "Casa" : locale === "ca" ? "Casa" : "House"}
+                  <div className="font-sans text-sm text-[#1a1a1a]/60 mb-1">
+                    {locale === "es" ? "Superficie" : locale === "ca" ? "Superfície" : "Area"}
                   </div>
-                  <div className="font-serif text-2xl font-bold text-green-brand">
-                    {selectedProperty.area}m²
-                  </div>
+                  <div className="font-serif text-xl font-semibold">{selectedProperty.area} m²</div>
                 </div>
-                {selectedProperty.extraArea && (
+                {selectedProperty.extraArea > 0 && (
                   <div>
-                    <div className="font-sans text-xs text-[#1a1a1a]/60 uppercase tracking-wider mb-2">
-                      {locale === "es" ? "Patio" : locale === "ca" ? "Pati" : "Patio"}
+                    <div className="font-sans text-sm text-[#1a1a1a]/60 mb-1 capitalize">
+                      {selectedProperty.extraAreaLabel || (locale === "es" ? "Extra" : locale === "ca" ? "Extra" : "Extra")}
                     </div>
-                    <div className="font-serif text-2xl font-bold text-green-brand">
-                      {selectedProperty.extraArea}m²
-                    </div>
+                    <div className="font-serif text-xl font-semibold">{selectedProperty.extraArea} m²</div>
                   </div>
                 )}
               </div>
 
-              {/* Description */}
-              {(locale === "es" ? selectedProperty.descriptionEs : locale === "ca" ? selectedProperty.descriptionCa : selectedProperty.descriptionEn) && (
-                <div className="mb-8">
-                  <h3 className="font-sans text-sm font-semibold text-[#1a1a1a] uppercase tracking-wider mb-3">
-                    {locale === "es" ? "Descripción" : locale === "ca" ? "Descripció" : "Description"}
-                  </h3>
-                  <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed">
-                    {locale === "es" ? selectedProperty.descriptionEs : locale === "ca" ? selectedProperty.descriptionCa : selectedProperty.descriptionEn}
-                  </p>
-                </div>
-              )}
+              <div className="prose prose-green max-w-none">
+                <h3 className="font-serif text-xl font-semibold mb-4">
+                  {locale === "es" ? "Descripción" : locale === "ca" ? "Descripció" : "Description"}
+                </h3>
+                <p className="font-sans text-[#1a1a1a]/80 leading-relaxed whitespace-pre-wrap">
+                  {locale === "es" ? selectedProperty.descriptionEs : locale === "ca" ? selectedProperty.descriptionCa : selectedProperty.descriptionEn}
+                </p>
+              </div>
 
-              {/* CTA */}
-              <div className="flex gap-4">
-                <button
-                  onClick={() => {
-                    setSelectedProperty(null);
-                    navigate("/contacto");
-                  }}
-                  className="flex-1 bg-green-brand text-white py-3 rounded-sm hover:bg-green-700 transition-colors font-semibold"
+              <div className="mt-10">
+                <a
+                  href="/contacto"
+                  className="inline-block bg-green-brand text-white px-8 py-4 rounded-sm font-sans font-bold hover:bg-green-700 transition-all text-center w-full md:w-auto"
                 >
-                  {locale === "es" ? "Contactar" : locale === "ca" ? "Contactar" : "Contact"}
-                </button>
-                <button
-                  onClick={() => setSelectedProperty(null)}
-                  className="flex-1 border border-[#1a1a1a]/20 text-[#1a1a1a] py-3 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors font-semibold"
-                >
-                  {locale === "es" ? "Cerrar" : locale === "ca" ? "Tancar" : "Close"}
-                </button>
+                  {locale === "es" ? "Solicitar información" : locale === "ca" ? "Sol·licitar informació" : "Request information"}
+                </a>
               </div>
             </div>
           </motion.div>
         </div>
       )}
-
       <Footer />
     </div>
   );
