@@ -81,7 +81,7 @@ export default function About() {
               servicio excepcional
             </h2>
             <p className="font-sans text-base text-[#1a1a1a]/60 leading-relaxed mb-4">
-              En Inmobiliaria Martorelles llevamos más de 15 años ayudando a familias
+              En Inmobiliaria Martorelles llevamos más de 3 años ayudando a familias
               a encontrar su hogar ideal en el Vallès Oriental. Nuestro profundo
               conocimiento del mercado local nos permite ofrecer valoraciones precisas
               y un asesoramiento personalizado en cada operación.
