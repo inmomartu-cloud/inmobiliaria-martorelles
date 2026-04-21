@@ -98,7 +98,7 @@ export default function CTA() {
                     {t("cta.stat1")}
                   </div>
                   <div className="w-px h-16 bg-white/20 mx-auto mb-8" />
-                  <div className="font-serif text-7xl font-bold mb-2 opacity-90">+500</div>
+                  <div className="font-serif text-7xl font-bold mb-2 opacity-90">+20</div>
                   <div className="font-sans text-sm tracking-wider uppercase opacity-70">
                     {t("cta.stat2")}
                   </div>
