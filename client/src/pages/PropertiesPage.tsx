@@ -112,7 +112,7 @@ export default function PropertiesPage() {
 
                         {/* Label badge */}
                         {property.tag && (
-  <div className={`absolute top-4 right-4 text-white px-3 py-1 rounded-sm text-xs font-semibold ${property.tag === 'sold' ? 'bg-red-600' : 'bg-green-brand'}`}>
+  <div className={`absolute top-4 right-4 text-white px-3 py-1 rounded-sm text-xs font-bold tracking-wider uppercase shadow-md ${property.tag === 'sold' ? 'bg-red-600' : 'bg-green-brand'}`}>
     {property.tag === "featured" 
       ? (locale === "es" ? "Destacada" : locale === "ca" ? "Destacada" : "Featured") 
       : property.tag === "exclusive" 
