@@ -157,6 +157,7 @@ const translations = {
   "props.featured": { es: "Destacado", ca: "Destacat", en: "Featured" },
   "props.exclusive": { es: "Exclusivo", ca: "Exclusiu", en: "Exclusive" },
   "props.new": { es: "Nuevo", ca: "Nou", en: "New" },
+  "props.sold": { es: "Vendido", ca: "Venut", en: "Sold" },
 
   // ─── ABOUT ───
   "about.label": { es: "Sobre nosotros", ca: "Sobre nosaltres", en: "About us" },
