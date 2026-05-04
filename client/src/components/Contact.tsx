@@ -1,7 +1,6 @@
 /**
  * Contact — Luxury Editorial Inmobiliario
- * Contact form with editorial styling, info sidebar.
- * Cream background, green accents.
+ * Contact form with Netlify integration and corrected email.
  */
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
@@ -19,10 +18,23 @@ export default function Contact() {
     message: "",
   });
 
+  // Función para manejar el envío a Netlify
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.");
-    setFormData({ name: "", email: "", phone: "", subject: "compra", message: "" });
+    
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data as any).toString(),
+    })
+      .then(() => {
+        toast.success("Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.");
+        setFormData({ name: "", email: "", phone: "", subject: "compra", message: "" });
+      })
+      .catch((error) => toast.error("Error al enviar el mensaje. Inténtelo de nuevo."));
   };
 
   return (
@@ -65,8 +77,8 @@ export default function Contact() {
                 {
                   icon: Mail,
                   label: "Email",
-                  value: "inmo@inmomartorelles.es",
-                  href: "mailto:inmo@inmomartorelles.es",
+                  value: "inmomartu@gmail.com", // CORREGIDO
+                  href: "mailto:inmomartu@gmail.com", // CORREGIDO
                 },
                 {
                   icon: Clock,
@@ -114,10 +126,17 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-8"
           >
+            {/* ATRIBUTOS AÑADIDOS PARA NETLIFY */}
             <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
               onSubmit={handleSubmit}
               className="bg-white p-6 lg:p-10 rounded-sm border border-[#e8e4df]"
             >
+              {/* Campo oculto necesario para React + Netlify */}
+              <input type="hidden" name="form-name" value="contact" />
+
               <h3 className="font-serif text-2xl font-semibold text-[#1a1a1a] mb-6">
                 Envíanos un mensaje
               </h3>
@@ -129,6 +148,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
+                    name="name" // AÑADIDO
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -142,6 +162,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email" // AÑADIDO
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -155,6 +176,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="tel"
+                    name="phone" // AÑADIDO
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full px-4 py-3 bg-cream border border-[#e8e4df] rounded-sm font-sans text-sm text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:border-green-brand focus:ring-1 focus:ring-green-brand/20 outline-none transition-all"
@@ -166,6 +188,7 @@ export default function Contact() {
                     Interesado en
                   </label>
                   <select
+                    name="subject" // AÑADIDO
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full px-4 py-3 bg-cream border border-[#e8e4df] rounded-sm font-sans text-sm text-[#1a1a1a] focus:border-green-brand focus:ring-1 focus:ring-green-brand/20 outline-none transition-all"
@@ -184,6 +207,7 @@ export default function Contact() {
                   Mensaje
                 </label>
                 <textarea
+                  name="message" // AÑADIDO
                   rows={4}
                   required
                   value={formData.message}
